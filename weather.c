@@ -108,7 +108,7 @@ weather_info * min_by_precip_for_week(const weather_info *const days) {
         if (!(days + i)) {
             return NULL;
         }
-        if (days[i].precipitation > min_precipitation) {
+        if (days[i].precipitation < min_precipitation) {
             min_precipitation = days[i].precipitation;
             number_of_min_day = i;
         }
@@ -122,4 +122,24 @@ void print_weather_info(const weather_info *const day) {
     printf("Temperature: %f\nPrecipitation: %f\nWind speed: %f\n", day->temperature,
                                                                    day->precipitation,
                                                                    day->wind_speed);
+}
+
+void input_weather_info(weather_info * day) {
+    printf("Input temperature: ");
+    scanf("%f", &(day->temperature));
+    printf("Input precipitation: ");
+    scanf("%f", &(day->precipitation));
+    printf("Input wind speed: ");
+    scanf("%f", &(day->wind_speed));
+}
+
+
+weather_info * input_weather_info_for_week() {
+    weather_info * days = (weather_info *)malloc(sizeof(weather_info)*7);
+    for (int i = 0; i < 7; i++) {
+        printf("DAY %d:\n", (i + 1));
+        input_weather_info(days + i);
+    }
+    printf("\n");
+    return days;
 }

@@ -9,6 +9,8 @@
 /home/mark/techno_park/c_cpp/techno_c_1/main.c
 stdio.h
 -
+stdlib.h
+-
 weather.h
 /home/mark/techno_park/c_cpp/techno_c_1/weather.h
 
