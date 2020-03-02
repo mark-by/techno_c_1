@@ -1,0 +1,3 @@
+/home/mark/techno_park/c_cpp/techno_c_1/CMakeFiles/rebuild_cache.dir
+/home/mark/techno_park/c_cpp/techno_c_1/CMakeFiles/run.dir
+/home/mark/techno_park/c_cpp/techno_c_1/CMakeFiles/edit_cache.dir
