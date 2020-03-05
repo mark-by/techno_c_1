@@ -124,21 +124,21 @@ void print_weather_info(const weather_info *const day) {
                                                                    day->wind_speed);
 }
 
-void input_weather_info(weather_info * day) {
+void input_weather_info(FILE * in, weather_info * day) {
     printf("Input temperature: ");
-    scanf("%f", &(day->temperature));
+    fscanf(in, "%f", &(day->temperature));
     printf("Input precipitation: ");
-    scanf("%f", &(day->precipitation));
+    fscanf(in, "%f", &(day->precipitation));
     printf("Input wind speed: ");
-    scanf("%f", &(day->wind_speed));
+    fscanf(in, "%f", &(day->wind_speed));
 }
 
 
-weather_info * input_weather_info_for_week() {
+weather_info * input_weather_info_for_week(FILE * in) {
     weather_info * days = (weather_info *)malloc(sizeof(weather_info)*7);
     for (int i = 0; i < 7; i++) {
         printf("DAY %d:\n", (i + 1));
-        input_weather_info(days + i);
+        input_weather_info(in, days + i);
     }
     printf("\n");
     return days;

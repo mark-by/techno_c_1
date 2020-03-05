@@ -1,5 +1,6 @@
 #ifndef _WEATHER_H_
 #define _WEATHER_H_
+#include <stdio.h>
 
 typedef struct weather_info {
     float temperature;
@@ -50,11 +51,11 @@ void print_weather_info(const weather_info *const);
 //Просит пользователя ввести данные через stdin для каждого
 //поля структуры для полученной структуры day.
 //Изменяет полученную структуру
-void input_weather_info(weather_info *);
+void input_weather_info(FILE * in, weather_info *);
 
 //Создает массив из 7 структур weather_info
 //Заполняет каждую с помощью input_weather_info
 //Возвращает указатель на массив или NULL в случае неудачи
-weather_info * input_weather_info_for_week();
+weather_info * input_weather_info_for_week(FILE * in);
 
 #endif

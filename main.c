@@ -3,7 +3,7 @@
 #include "weather.h"
 
 int main() {
-    weather_info * days = input_weather_info_for_week();
+    weather_info * days = input_weather_info_for_week(stdin);
     
     weather_info * day = min_by_precip_for_week(days);
     printf("DAY WITH MINIMAL PRECIPITATION:\n");
