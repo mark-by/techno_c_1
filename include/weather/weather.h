@@ -58,6 +58,4 @@ void input_weather_info(FILE * in, FILE * out, weather_info *);
 //Возвращает указатель на массив или NULL в случае неудачи
 weather_info * input_weather_info_for_week(FILE * in, FILE * out);
 
-float input_number(FILE * in);
-
 #endif

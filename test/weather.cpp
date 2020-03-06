@@ -6,46 +6,6 @@ extern "C" {
 #include "weather/weather.h"
 }
 
-TEST(InputTest, CorrectInput) {
-    FILE * input = fopen("../../test/test_input", "r");
-    if(!input) {
-        printf("NOFILE\n");
-    }
-    ASSERT_FLOAT_EQ(100, input_number(input));
-    ASSERT_FLOAT_EQ(200, input_number(input));
-    ASSERT_FLOAT_EQ(300, input_number(input));
-    ASSERT_FLOAT_EQ(45.5, input_number(input));
-    ASSERT_FLOAT_EQ(55.5, input_number(input));
-    ASSERT_FLOAT_EQ(65.5, input_number(input));
-    ASSERT_FLOAT_EQ(10, input_number(input));
-    ASSERT_FLOAT_EQ(20, input_number(input));
-    ASSERT_FLOAT_EQ(30, input_number(input));
-    ASSERT_FLOAT_EQ(100.5, input_number(input));
-    ASSERT_FLOAT_EQ(125.5, input_number(input));
-    ASSERT_FLOAT_EQ(135.5, input_number(input));
-    fclose(input);
-}
-    
-TEST(InputTest, IncorrectInput) {
-    FILE * input = fopen("../../test/test_incorrect_input", "r");
-    if(!input) {
-        printf("NOFILE\n");
-    }
-    ASSERT_FLOAT_EQ(234234.4534534345, input_number(input));
-    ASSERT_FLOAT_EQ(0, input_number(input));
-    ASSERT_FLOAT_EQ(300, input_number(input));
-    ASSERT_FLOAT_EQ(45.5, input_number(input));
-    ASSERT_FLOAT_EQ(55.5, input_number(input));
-    ASSERT_FLOAT_EQ(65.5, input_number(input));
-    ASSERT_FLOAT_EQ(-934, input_number(input));
-    ASSERT_FLOAT_EQ(0, input_number(input));
-    ASSERT_FLOAT_EQ(30, input_number(input));
-    ASSERT_FLOAT_EQ(0, input_number(input));
-    ASSERT_FLOAT_EQ(12, input_number(input));
-    ASSERT_FLOAT_EQ(0, input_number(input));
-    fclose(input);
-}
-
 TEST(WeatherTest, CreateStruct) {
     float temperature = 5;
     float precipitation = 10;

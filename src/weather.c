@@ -1,4 +1,6 @@
 #include "weather/weather.h"
+#include "input/input.h"
+#include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -125,12 +127,31 @@ void print_weather_info(FILE * out, const weather_info *const day) {
 }
 
 void input_weather_info(FILE * in, FILE * out, weather_info * day) {
+    float temp;
+    errno = 0;
     fprintf(out, "Input temperature: ");
-    day->temperature = input_number(in);
+    temp = input_float(in, stderr);
+    if (!errno) {
+        day->temperature = temp;
+    } else {
+        return;
+    }
     fprintf(out, "Input precipitation: ");
-    day->precipitation = input_number(in);
+    errno = 0;
+    temp = input_float(in, stderr);
+    if (!errno) {
+        day->precipitation = temp;
+    } else {
+        return;
+    }
     fprintf(out, "Input wind speed: ");
-    day->wind_speed = input_number(in);
+    errno = 0;
+    temp = input_float(in, stderr);
+    if (!errno) {
+        day->wind_speed = temp;
+    } else {
+        return;
+    }
 }
 
 
@@ -138,25 +159,12 @@ weather_info * input_weather_info_for_week(FILE * in, FILE * out) {
     weather_info * days = (weather_info *)malloc(sizeof(weather_info)*7);
     for (int i = 0; i < 7; i++) {
         fprintf(out, "DAY %d:\n", (i + 1));
+        errno  = 0;
         input_weather_info(in, out, days + i);
+        if (errno) {
+            i--;
+        }
     }
     printf("\n");
     return days;
-}
-
-float input_number(FILE * in) {
-    char buffer[64];
-    char tmp = ' ';
-    int len = 0;
-    while (tmp != '\n' && len < 64) {
-        tmp = fgetc(in);
-        buffer[len] = tmp;
-        len++;
-    }
-    if (len > 0) {
-        buffer[len-1] = '\0';
-    } else {
-        buffer[len] = '\0';
-    }
-    return atof(buffer);
 }
