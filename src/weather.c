@@ -1,4 +1,4 @@
-#include "weather.h"
+#include "weather/weather.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -118,28 +118,45 @@ weather_info * min_by_precip_for_week(const weather_info *const days) {
                                  days[number_of_min_day].wind_speed);
 }
 
-void print_weather_info(const weather_info *const day) {
-    printf("Temperature: %f\nPrecipitation: %f\nWind speed: %f\n", day->temperature,
-                                                                   day->precipitation,
-                                                                   day->wind_speed);
+void print_weather_info(FILE * out, const weather_info *const day) {
+    fprintf(out, "Temperature: %f\nPrecipitation: %f\nWind speed: %f\n", day->temperature,
+                                                                         day->precipitation,
+                                                                         day->wind_speed);
 }
 
-void input_weather_info(FILE * in, weather_info * day) {
-    printf("Input temperature: ");
-    fscanf(in, "%f", &(day->temperature));
-    printf("Input precipitation: ");
-    fscanf(in, "%f", &(day->precipitation));
-    printf("Input wind speed: ");
-    fscanf(in, "%f", &(day->wind_speed));
+void input_weather_info(FILE * in, FILE * out, weather_info * day) {
+    fprintf(out, "Input temperature: ");
+    day->temperature = input_number(in);
+    fprintf(out, "Input precipitation: ");
+    day->precipitation = input_number(in);
+    fprintf(out, "Input wind speed: ");
+    day->wind_speed = input_number(in);
 }
 
 
-weather_info * input_weather_info_for_week(FILE * in) {
+weather_info * input_weather_info_for_week(FILE * in, FILE * out) {
     weather_info * days = (weather_info *)malloc(sizeof(weather_info)*7);
     for (int i = 0; i < 7; i++) {
-        printf("DAY %d:\n", (i + 1));
-        input_weather_info(in, days + i);
+        fprintf(out, "DAY %d:\n", (i + 1));
+        input_weather_info(in, out, days + i);
     }
     printf("\n");
     return days;
+}
+
+float input_number(FILE * in) {
+    char buffer[64];
+    char tmp = ' ';
+    int len = 0;
+    while (tmp != '\n' && len < 64) {
+        tmp = fgetc(in);
+        buffer[len] = tmp;
+        len++;
+    }
+    if (len > 0) {
+        buffer[len-1] = '\0';
+    } else {
+        buffer[len] = '\0';
+    }
+    return atof(buffer);
 }

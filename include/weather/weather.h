@@ -46,16 +46,18 @@ weather_info * min_by_temp_for_week(const weather_info *const);
 weather_info * min_by_precip_for_week(const weather_info *const);
 
 //Печатает структуру weather_info
-void print_weather_info(const weather_info *const);
+void print_weather_info(FILE * out, const weather_info *const);
 
 //Просит пользователя ввести данные через stdin для каждого
 //поля структуры для полученной структуры day.
 //Изменяет полученную структуру
-void input_weather_info(FILE * in, weather_info *);
+void input_weather_info(FILE * in, FILE * out, weather_info *);
 
 //Создает массив из 7 структур weather_info
 //Заполняет каждую с помощью input_weather_info
 //Возвращает указатель на массив или NULL в случае неудачи
-weather_info * input_weather_info_for_week(FILE * in);
+weather_info * input_weather_info_for_week(FILE * in, FILE * out);
+
+float input_number(FILE * in);
 
 #endif
