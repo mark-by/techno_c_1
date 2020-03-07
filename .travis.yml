@@ -1,37 +1,18 @@
-dist: bionic
-sudo: required
-
 language: c
+dist: bionic
+sudo: true
 
-os:
-    - linux
-    - osx
-
-compiler:
-    - gcc
-    - clang
-
-env:
-    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
-    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
-    - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
-    - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
-
-matrix:
-    exclude:
-        - os: osx
-            compiler: gcc
-
-        - os: osx
-            env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
-        
-        - os: osx
-            env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+before_install:
+    - sudo apt-get -y install cppcheck
+    - sudo apt-get -y install valgrind
 
 script:
-    - mkdir build
+    - cppcheck --inconclusive --enable=all --check-config --suppress=missingIncludeSystem -I include --language=c src
+    - ./configure
     - cd build
-    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
-    - cmake --build .
-    - ctest --output-on-failure
-
+    - make test
+    - valgrind --tool=memcheck --leak-check=full ./run <../test/test_input> \;
+    - valgrind --tool=memcheck --leak-check=full ./run <../test/test_incorrect_input> \;
+    - cd test
+    - valgrind --tool=memcheck --leak-check=full ./weather_tests
+    - valgrind --tool=memcheck --leak-check=full ./input_tests

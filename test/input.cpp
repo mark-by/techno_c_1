@@ -17,6 +17,7 @@ TEST(InputTest, CorrectInput) {
     ASSERT_EQ(0, errno);
     ASSERT_FLOAT_EQ(45.5, input_float(input_file, stderr));
     ASSERT_EQ(0, errno);
+    fclose(input_file);
 }
 
 TEST(InputTest, IncorrectInput) {
@@ -32,4 +33,5 @@ TEST(InputTest, IncorrectInput) {
     errno = 0;
     ASSERT_FLOAT_EQ(45.5, input_float(input_file, stderr));
     ASSERT_EQ(0, errno);
+    fclose(input_file);
 }

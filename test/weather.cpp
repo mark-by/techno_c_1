@@ -52,6 +52,7 @@ TEST(WeatherTest, MaxByTempForWeek) {
    ASSERT_FLOAT_EQ(125.5, ans->precipitation);
    ASSERT_FLOAT_EQ(135.5, ans->wind_speed);
    free(ptr);
+   free(ans);
 }
 
 TEST(WeatherTest, MinByTempForWeek) {
@@ -66,6 +67,7 @@ TEST(WeatherTest, MinByTempForWeek) {
    ASSERT_FLOAT_EQ(20, ans->precipitation);
    ASSERT_FLOAT_EQ(30, ans->wind_speed);
    free(ptr);
+   free(ans);
 }
 
 TEST(WeatherTest, AverageInfoForWeek) {
@@ -80,6 +82,7 @@ TEST(WeatherTest, AverageInfoForWeek) {
    ASSERT_FLOAT_EQ(108, ans->precipitation);
    ASSERT_FLOAT_EQ(135.14285, ans->wind_speed);
    free(ptr);
+   free(ans);
 }
 
 TEST(WeatherTest, MaxByPrecipitationForWeek) {
@@ -94,6 +97,7 @@ TEST(WeatherTest, MaxByPrecipitationForWeek) {
    ASSERT_FLOAT_EQ(200, ans->precipitation);
    ASSERT_FLOAT_EQ(300, ans->wind_speed);
    free(ptr);
+   free(ans);
 }
 
 
@@ -109,4 +113,5 @@ TEST(WeatherTest, MinByPrecipitationForWeek) {
    ASSERT_FLOAT_EQ(20, ans->precipitation);
    ASSERT_FLOAT_EQ(30, ans->wind_speed);
    free(ptr);
+   free(ans);
 }

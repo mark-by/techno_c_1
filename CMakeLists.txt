@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 
 project(weather)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -ggdb")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -O0 -ggdb ")
 configure_file(CMakeLists.txt.in
     googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
