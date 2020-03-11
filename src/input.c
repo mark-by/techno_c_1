@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#define BUFFER_SIZE 64
+
 void clear_spaces(char * str) {
     char count_number = 0;
     for (int i=0; str[i] != '\0'; i++) {
@@ -18,11 +20,11 @@ void clear_spaces(char * str) {
 }
 
 float input_float(FILE * in, FILE * err) {
-    char buffer[64];
+    char buffer[BUFFER_SIZE];
     char *ptr = buffer;
     float result;
     errno = 0;
-    fgets(buffer, 64, in);
+    fgets(buffer, BUFFER_SIZE, in);
     clear_spaces(buffer);
     result = strtof(buffer, &ptr);
     if (errno || buffer == ptr || *ptr != 0) {
