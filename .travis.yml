@@ -1,0 +1,18 @@
+language: c
+dist: bionic
+sudo: true
+
+before_install:
+    - sudo apt-get -y install cppcheck
+    - sudo apt-get -y install valgrind
+
+script:
+    - cppcheck --inconclusive --enable=all --check-config --suppress=missingIncludeSystem -I include --language=c src
+    - ./configure
+    - cd build
+    - make test
+    - valgrind --tool=memcheck --leak-check=full ./run <../test/test_input> \;
+    - valgrind --tool=memcheck --leak-check=full ./run <../test/test_incorrect_input> \;
+    - cd test
+    - valgrind --tool=memcheck --leak-check=full ./weather_tests
+    - valgrind --tool=memcheck --leak-check=full ./input_tests
